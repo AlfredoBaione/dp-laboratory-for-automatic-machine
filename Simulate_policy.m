@@ -1,11 +1,11 @@
 
-%SIMULAZIONE MONTECARLO DEL CASO IN CUI ABBIAMO 14 TIME BUCKETS
+% MONTECARLO SIMULATION IN THE CASE OF 14 TIME BUCKETS
 
 function costScenarios=Simulatepolitica7(Inv, setcost, beta, numScenarios)
 
 costScenarios=zeros(1,4);
 
-%primo prodotto
+% FIRST PRODUCT
 probs1=zeros(1,60);
 probs1(1,12)=0.3;
 probs1(1,46)=0.6;
@@ -21,7 +21,7 @@ for k=1:+1:numScenarios
 end
 costScenarios(1,1)=mean(costScenarios1);
         
-%secondo prodotto
+% SECOND PRODUCT
 probs2=zeros(1,50);
 probs2(1,20)=0.1;
 probs2(1,41)=0.6;
@@ -36,7 +36,7 @@ for k=1:+1:numScenarios
 end
  costScenarios(1,2)=mean(costScenarios2);
  
- %terzo prodotto
+ % THIRD PRODUCT
 probs3=zeros(1,40);
 probs3(1,28)=0.1;
 probs3(1,60)=0.6;
@@ -50,7 +50,7 @@ costScenarios3=zeros(numScenarios,1);
 end
 costScenarios(1,3)=mean(costScenarios3);
 
-%quarto prodotto
+% FOURTH PRODUCT
 probs4=zeros(1,70);
 probs4(1,25)=0.2;
 probs4(1,53)=0.7;
