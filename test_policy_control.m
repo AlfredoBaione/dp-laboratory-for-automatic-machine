@@ -2,7 +2,7 @@ clear all
 close all
 clc
 
-%TEST politicacontrollo
+% TEST policy control
 maxInv=[50,40,30,50];
 prod=[5,5,5,5];
 beta=[1,1,1,1]; 
