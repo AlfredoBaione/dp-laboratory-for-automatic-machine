@@ -1,4 +1,4 @@
-%POLITICA CONTROLLO DP SU 4 Prodotti
+% DP POLICY OVER FOUR PRODUCTS
 
 function [valueTable, actionTable, Inv] = politicacontrollo7(maxInv, prod, demandProbs, demandValues, beta,setcost, horizon)
 
@@ -6,8 +6,7 @@ valueTable = zeros(4,horizon+4);
 actionTable = zeros(4,horizon+4);
 Inv=zeros(4,horizon+4);
 
-%iterazione stati da horizon+2 a 3  (i primi due e gli ultimi due
- %servono solo per ciclare)
+%STATES ITERATIONS from horizon +2 to 3 (first and last two are necessary only for looping)
  for i=1:+1:4
      if maxInv(i)>=prod(i)*(horizon)-prod(i)
         Inv(i,horizon+2)=(horizon)*prod(i)-prod(i);
@@ -22,7 +21,7 @@ Inv=zeros(4,horizon+4);
  while t>=3
         
        
-      %primo prodotto 
+      % first product
        a=1;
         for m=0:+prod(1):Inv(1,t)
             
@@ -55,7 +54,7 @@ Inv=zeros(4,horizon+4);
         end
         
        
-       %secondo prodotto
+       % second product
        a=1;
         for m=0:+prod(2):Inv(2,t)
             
@@ -87,7 +86,7 @@ Inv=zeros(4,horizon+4);
             actionTable(2,t)=3; 
         end
        
-       %terzo prodotto
+       % third product
          a=1;
         for m=0:+prod(3):Inv(3,t)
             
@@ -119,7 +118,7 @@ Inv=zeros(4,horizon+4);
         end
      
        
-       %quarto prodotto
+       % fourth product
          a=1;
         for m=0:+prod(4):Inv(4,t)
             
@@ -152,9 +151,7 @@ Inv=zeros(4,horizon+4);
         end
          
                
-       %scelta azioni: 0=niente, 1=termina di produrre quel prodotto,
-       %2=produco, 3=setto la macchina per produrre un prodotto di un'altra
-       %famiglia.
+       % possible actions are 0=rest, 1=finishing the production 2=producting, 3=setting the machine in order to produce another kind of product
        
           r=find(valueTable(:,t)==min(valueTable(:,t)));
          
@@ -280,11 +277,11 @@ Inv=zeros(4,horizon+4);
         
   end
          
-    %Istruzioni aggiuntive
+    % further instructions
     
     
       
-    %Istruzione 1: forza la produzione di prodotti inutilizzati
+    % Instruction 1: forcing the production of unused products
      for t=horizon+2:-1:3
                  if    actionTable(1,t)==1 && sum(actionTable(2,t+1:horizon+2))==0 && actionTable(3,t+1)~=2 && actionTable(4,t+1)~=2
                        actionTable(2,t)=2;
@@ -337,7 +334,7 @@ Inv=zeros(4,horizon+4);
                  end
      end
      
-       %Istruzione 2: settaggi macchine  
+       % Instruction 2: setting machines  
           for t=horizon+2:-1:3
                       if ((actionTable(1,t)==0 || actionTable(1,t)==1) && (actionTable(1,t-1)==2 && actionTable(3,t+1)==2)) ||((actionTable(2,t)==0 || actionTable(2,t)==1) && (actionTable(2,t-1)==2 && actionTable(3,t+1)==2))                                       
                            actionTable(3,t)=3; 
@@ -354,7 +351,7 @@ Inv=zeros(4,horizon+4);
                       end
           end
           
-     %Istruzione 3: spegnimento macchine
+     % Instruction 3: turning off the machines
           for t=horizon+2:-1:3
               for i=1:+1:4 
                   if actionTable(i,t)==2 && actionTable (i,t+1)==0
@@ -364,7 +361,7 @@ Inv=zeros(4,horizon+4);
           end
 
        
-       %Istruzione 4: magazzino
+       % Instruction 4: warehouse
             for t=horizon+3:-1:1
                  for i=1:+1:4
                      if actionTable(i,t)==0 || actionTable(i,t)==3 
